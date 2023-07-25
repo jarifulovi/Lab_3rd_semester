@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<limits.h>
-#define SIZE 5
+#define SIZE 4
 struct node* createNode(int fre,char character);
 struct node{
     int frequency;
@@ -10,8 +10,8 @@ struct node{
     struct node* right;
 
 };
-void swap(struct node** a,struct node** b){
-    struct node* t = *a;
+void swap(int *a,int *b){
+    int t = *a;
     *a = *b;
     *b = t;
 }
@@ -29,7 +29,7 @@ struct node* huffman_tree(struct node* arr[],int n){
         int min1 = 0;
         int min2 = 1;
         if(arr[min1]->frequency > arr[min2]->frequency){
-            swap(&arr[min1],&arr[min2]);
+            min1 = 1; min2 = 0;
         }
         for(int i=2;i<n;i++){
             if(arr[i]->frequency<arr[min1]->frequency){
@@ -71,8 +71,8 @@ void printCode(struct node* root, int codes[], int index) {
 }
 
 int main(){
-    int frequency[SIZE] = {1,2,3,4,5};
-    char characters[SIZE+1] = "abcde";
+    int frequency[SIZE] = {5,1,6,3};
+    char characters[SIZE+1] = "abcd";
     struct node* arr[SIZE];
     // creating array of nodes
     for(int i=0;i<SIZE;i++){
