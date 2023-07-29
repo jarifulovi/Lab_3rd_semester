@@ -24,9 +24,10 @@ struct node* createNode(int fre,char character){
     return newnode;
 }
 
-struct node* huffman_tree(struct node* arr[],int n){
+struct node* huffman_tree(struct node* arr[]){
+    int n = SIZE;
     while(n>1){
-        int min1 = 0;
+        int min1 = 0;  // index of minimum frequency node
         int min2 = 1;
         if(arr[min1]->frequency > arr[min2]->frequency){
             min1 = 1; min2 = 0;
@@ -44,10 +45,10 @@ struct node* huffman_tree(struct node* arr[],int n){
         newnode->left = arr[min1];
         newnode->right = arr[min2];
 
-        arr[min1] = newnode;
-        arr[min2] = arr[n-1];
+        arr[min1] = newnode;  // taking newnode in the min1 index
+        arr[min2] = arr[n-1];  // taking the last element in the min2 index
 
-        n--;
+        n--;  // excluding the last element
     }
     return arr[0];
 }
@@ -86,7 +87,7 @@ int main(){
 
     int codes[SIZE]={0};
     // creating Huffman code tree
-    struct node* root = huffman_tree(arr,SIZE);
+    struct node* root = huffman_tree(arr);
     // printing the codes
     printCode(root,codes,0);
     free(root);
