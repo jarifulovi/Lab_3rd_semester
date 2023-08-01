@@ -23,7 +23,7 @@ int main() {
     printf("Enter the states: ");
     scanf("%s", states);
     getchar();
-    printf("Enter the transition function: ");
+    printf("Enter the transition function:\n");
     for (int i = 0; i < 6; i++) {
         for (int j = 0; j < 3; j++) {
             scanf(" %c", &transition[i][j]);
