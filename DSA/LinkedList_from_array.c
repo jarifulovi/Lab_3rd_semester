@@ -5,35 +5,58 @@ struct node{
     struct node* next;
 };
 struct node* createNode(int val){
-    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    struct node* temp;
+    temp =  (struct node*)malloc(sizeof(struct node));
     temp->data = val;
     temp->next = NULL;
     return temp;
 }
-void createLinkList(struct node** head,int *arr,int size){
+void createLinkedList(struct node** head,int* arr,int size){  // stack like list
     if(size<1) return;
-    struct node* first = NULL;
-    first = (struct node*)malloc(sizeof(struct node));
-    first = createNode(arr[0]);
-    struct node* curr = first;
+    *head = createNode(arr[0]);
+    struct node* curr;
+    curr = *head;
     for(int i=1;i<size;i++){
         curr->next = createNode(arr[i]);
         curr = curr->next;
     }
-    (*head) = first;
 }
-void reverseLinkedList(struct node** head,int* arr,int size){
+void reverseAddingLinkedList(struct node** head,int* arr,int size){  // queue like list
     if(size<1) return;
-    struct node* first = NULL;
-    first = (struct node*)malloc(sizeof(struct node));
-    first = createNode(arr[0]);
+   
+    *head = createNode(arr[0]);
     struct node* curr;
     for(int i=1;i<size;i++){
-    curr = createNode(arr[i]);
-    curr->next = first;
-    first = curr;
+        curr = createNode(arr[i]);
+        curr->next = *head;
+        *head = curr;
     }
-    (*head) = first;
+
+}
+void reverseLinkedList(struct node** head){
+    if((*head)==NULL||(*head)->next==NULL) return;
+ 
+    struct node* curr = *head;
+    struct node* pre = NULL;
+    struct node* next = NULL;
+    while(curr!=NULL){        // reverse the curr and store the next for further iteration
+        next = curr->next;
+        curr->next = pre;
+        pre = curr;
+        curr = next;
+    }
+    *head = pre;  // curr will end up in null so pre should be the starting point
+}
+
+void eraseLinkedList(struct node** head){
+    struct node* curr = *head;
+    while (curr!=NULL)
+    {
+        struct node* temp = curr;
+        curr = curr->next;
+        free(temp);
+    }
+    
 }
 void printLinkedList(struct node* head){
     struct node* curr = head;
@@ -44,13 +67,18 @@ void printLinkedList(struct node* head){
 }
 int main(){
     struct node* head;
-    int arr[] = {1,2,3,4,5,6};
+    int arr[] = {1,2,3,4,5};
     int size = sizeof(arr)/sizeof(arr[0]);
-    printf("Linked List :\n");
-    createLinkList(&head,arr,size);
+    printf("Linked List : ");
+    createLinkedList(&head,arr,size);
     printLinkedList(head);
-    printf("\nLinked List in reverse order :\n");
-    reverseLinkedList(&head,arr,size);
+
+    printf("\nReverse order Linked List : ");
+    reverseLinkedList(&head);
     printLinkedList(head);
-    printf("\n");
+    eraseLinkedList(&head);
+
+    printf("\nReverse adding Linked List : ");
+    reverseAddingLinkedList(&head,arr,size);
+    printLinkedList(head);
 }
