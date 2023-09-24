@@ -6,12 +6,13 @@
 
 using namespace std;
 
-const int MAX_VERTICES = 10; 
+const int MAX_VERTICES = 20; 
 const int INF = INT_MAX;
 
 string name[MAX_VERTICES];
 int n;
 int w[MAX_VERTICES][MAX_VERTICES];
+int nextVertex[MAX_VERTICES][MAX_VERTICES];
 
 void initializeGraph() {
     for (int i = 0; i < MAX_VERTICES; i++) {
@@ -32,7 +33,7 @@ void readInput() {
     n = 0;
     cin >> edge;
     while (cin >> u) {
-       
+      
         if (u == "END")
             break;
 
@@ -49,6 +50,7 @@ void readInput() {
         if (isNewVertexU) {
             name[n] = u;
             n++;
+           
         }
 
         cin >> v;
@@ -66,6 +68,7 @@ void readInput() {
         if (isNewVertexV) {
             name[n] = v;
             n++;
+           
         }
 
         cin >> weight;
@@ -88,11 +91,12 @@ void printShortestPaths(int nextVertex[MAX_VERTICES][MAX_VERTICES]) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             if (i != j) {
-                cout << "Shortest path from " << name[i] << " to " << name[j] << ": ";
+                cout << "From " << name[i] << " to " << name[j] << ": ";
 
                 if (w[i][j] == INF) {
                     cout << "No path exists.";
-                } else {
+                } 
+                else {
                     cout << name[i];
                     int intermediate = i;
 
@@ -111,7 +115,7 @@ void printShortestPaths(int nextVertex[MAX_VERTICES][MAX_VERTICES]) {
 
 void floydWarshall() {
     int i, j, k;
-    int nextVertex[MAX_VERTICES][MAX_VERTICES];
+   
 
    
     for (int i = 0; i < n; i++) {
@@ -132,21 +136,8 @@ void floydWarshall() {
         }
     }
     printShortestPaths(nextVertex);
-    fclose(stdin);
-    printf("Enter two vertices : ");
-    int a,b;
-    cin >> a >> b;
-    cout << "Shortest path from " << name[a] << " to " << name[b] << ": ";
-    cout << name[a];
-                int intermediate = a;
-
-                while (intermediate != b) {
-                    intermediate = nextVertex[intermediate][b];
-                    cout << " -> " << name[intermediate];
-                }
-                cout << ", Distance: ";
-                if(w[a][b]==INF) cout << "No path exist\n";
-                else cout << w[a][b] << "\n";
+    
+    
 }
 
 int main() {
@@ -155,6 +146,21 @@ int main() {
 
     readInput();
     floydWarshall();
+
+    printf("Enter two vertices : \n");
+    int a,b;
+    cin >> a >> b;
+    cout << "From " << name[a] << " to " << name[b] << ": ";
+    cout << name[a];
+    int intermediate = a;
+
+    while (intermediate != b) {
+            intermediate = nextVertex[intermediate][b];
+            cout << " -> " << name[intermediate];
+            }
+    cout << ", Distance: ";
+    if(w[a][b]==INF) cout << "No path exist\n";
+    else cout << w[a][b] << "\n";
 
     return 0;
 }
