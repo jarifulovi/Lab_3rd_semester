@@ -1,0 +1,2 @@
+public class UsingException2 {
+}
