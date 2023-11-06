@@ -60,7 +60,9 @@ int main(){
     cout << "Enter the string : ";
     cin >> input;
     cout << "The string is : " << input << "\n";
+    cout << "The leftmost derivative :\n";
     generateLeftmostDerivation(input);
+    cout << "\n\nThe rightmost derivative :\n";
     generateRightmostDerivation(input);
     return 0;
 }

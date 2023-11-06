@@ -42,14 +42,14 @@ void Pumping_lemma(string input){
         int n = i;
         string str;
         str = generateW(n,second_term);   // generate string according to expression
-       
+        cout << "The generated string is " << str << "\n";
         int ite = 0;
         while(isReguler&&ite++<10){      // it will check atmost 10 times
             str = Pumping(str);
             isReguler = checkW(str,second_term);
         }
         if(!isReguler){
-            cout << "The expression is not reguler when n is " << n << "and k is " <<ite << "\n";
+            cout << "The expression is not reguler when n is " << n << " and k is " <<ite << "\n";
             cout << "The pumped string is "<< str << "\n";
             break;
         }
