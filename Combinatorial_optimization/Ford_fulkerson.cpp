@@ -5,13 +5,13 @@
 using namespace std;
 #define V 6
 
-bool bfs(int rGraph[V][V], int s, int t, int parent[]){
+bool bfs(int rGraph[V][V], int starting_vertex, int final_vertex, int parent[]){
 	bool visited[V] = {false};
 
 	queue<int> q;
-	q.push(s);
-	visited[s] = true;
-	parent[s] = -1;
+	q.push(starting_vertex);
+	visited[starting_vertex] = true;
+	parent[starting_vertex] = -1;
 
 	while (!q.empty()) {
 		int u = q.front();
@@ -19,8 +19,8 @@ bool bfs(int rGraph[V][V], int s, int t, int parent[]){
 
 		for (int v = 0; v < V; v++) {
 			if (visited[v] == false && rGraph[u][v]>0) {
-                parent[v] = u;
-				if (v == t) {
+                parent[v] = u;  // keeping the path 
+				if (v == final_vertex) {
 					return true;
 				}
 				q.push(v);
@@ -30,7 +30,7 @@ bool bfs(int rGraph[V][V], int s, int t, int parent[]){
 	}
 	return false;
 }
-int fordFulkerson(int graph[V][V], int s, int t)
+int fordFulkerson(int graph[V][V], int starting_vertex, int final_vertex)
 {
 	int u, v;
 
@@ -44,16 +44,17 @@ int fordFulkerson(int graph[V][V], int s, int t)
 
 	int max_flow = 0;
 
-	while (bfs(rGraph, s, t, parent)) {
+	while (bfs(rGraph, starting_vertex, final_vertex, parent)) {
 		
 		int path_flow = INT_MAX;
-		for (v = t; v != s;) {
+		// searching the augmenting path
+		for (v = final_vertex; v != starting_vertex;) {
 			u = parent[v];
 			path_flow = min(path_flow, rGraph[u][v]);
             v = parent[v];
 		}
 
-		for (v = t; v != s; ) {
+		for (v = final_vertex; v != starting_vertex; ) {
 			u = parent[v];
 			rGraph[u][v] -= path_flow;
 			rGraph[v][u] += path_flow;
