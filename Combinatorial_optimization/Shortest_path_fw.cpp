@@ -112,12 +112,20 @@ void printShortestPaths(int nextVertex[MAX_VERTICES][MAX_VERTICES]) {
         }
     }
 }
+bool hasNegativeCycle() {
+    for (int i = 0; i < n; i++) {
+        if (w[i][i] < 0) {
+            cout << "Graph contains a negative cycle involving vertex " << name[i] << "\n";
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void floydWarshall() {
     int i, j, k;
-   
 
-   
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             nextVertex[i][j] = j;
@@ -135,8 +143,9 @@ void floydWarshall() {
             }
         }
     }
-    printShortestPaths(nextVertex);
-    
+    if(!hasNegativeCycle()){
+        printShortestPaths(nextVertex);
+    }
     
 }
 

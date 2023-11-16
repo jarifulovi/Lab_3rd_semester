@@ -3,7 +3,7 @@
 #define V 5
 using namespace std;
 
-string check_G(string grammar[V],int f_ind,int l_ind,string input){
+string check_G(string grammar[vertices],int f_ind,int l_ind,string input){
     if(f_ind>l_ind) return grammar[0];
     if(f_ind==l_ind){
         if(input[f_ind]=='1') return grammar[1];
@@ -15,7 +15,7 @@ string check_G(string grammar[V],int f_ind,int l_ind,string input){
     }
 }
 bool CFG_Palindrome(string input,string& main_ans){
-    string grammar[V] = {
+    string grammar[vertices] = {
         "","1","0","1P1","0P0"
     };
     int length = input.size();

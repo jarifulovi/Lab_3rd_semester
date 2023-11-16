@@ -24,8 +24,11 @@ bool NFA(char currentState, char *string, char *alphabet, char acceptState,
     path[pathlength] = currentState;
     if (*string == '\0') {
         path[pathlength+1] = '\0';
-        print_path(path);
-        return currentState == acceptState;
+        if(currentState == acceptState){
+            print_path(path);
+            return true;
+        }
+        return false;
     }
 
     bool result = false;
