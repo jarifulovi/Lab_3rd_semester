@@ -11,10 +11,12 @@ void buildPrefixFunction(const string& pat, vector<int>& prefix_function) {
             prefix_function[i] = j + 1;
             ++i;
             ++j;
-        } else {
+        } 
+        else {
             if (j != 0) {
                 j = prefix_function[j - 1];
-            } else {
+            } 
+            else {
                 prefix_function[i] = 0;
                 ++i;
             }

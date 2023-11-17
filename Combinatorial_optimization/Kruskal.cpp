@@ -53,10 +53,10 @@ public:
 
 class Graph { 
 	vector<vector<int> > edgelist; 
-	int V; 
+	int SIZE; 
 
 public: 
-	Graph(int V) { this->V = V; } 
+	Graph(int SIZE) { this->SIZE = SIZE; } 
 
 	// Function to add edge in a graph 
 	void addEdge(int x, int y, int w) 
@@ -70,7 +70,7 @@ public:
 		sort(edgelist.begin(), edgelist.end()); 
 
 		// Initialize the DSU 
-		DSU s(V); 
+		DSU s(SIZE); 
 		int ans = 0; 
 		cout << "Following are the edges in the "
 				"constructed MST"
